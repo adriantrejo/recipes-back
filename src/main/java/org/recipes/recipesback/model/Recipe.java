@@ -1,5 +1,6 @@
 package org.recipes.recipesback.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
@@ -14,7 +15,7 @@ public class Recipe {
 
     @Column(nullable = false, length = 100)
     private String title;
-
+    @JsonProperty("making_time")
     @Column(name = "making_time", nullable = false, length = 100)
     private String makingTime;
 
@@ -27,10 +28,10 @@ public class Recipe {
     @Column(nullable = false)
     private Integer cost;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     // Getters and Setters

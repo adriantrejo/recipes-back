@@ -5,6 +5,7 @@ import org.recipes.recipesback.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,9 @@ public class RecipeServiceImpl implements RecipeService {
     private RecipeRepository recipeRepository;
 
     public Recipe createRecipe(Recipe recipe) {
+        LocalDateTime now = LocalDateTime.now();
+        recipe.setCreatedAt(now);
+        recipe.setUpdatedAt(now);
         return recipeRepository.save(recipe);
     }
 
@@ -29,6 +33,8 @@ public class RecipeServiceImpl implements RecipeService {
     public Optional<Recipe> updateRecipe(Integer id, Recipe updatedRecipe) {
         if (recipeRepository.existsById(id)) {
             updatedRecipe.setId(id);
+            LocalDateTime now = LocalDateTime.now();
+            updatedRecipe.setUpdatedAt(now);
             return Optional.of(recipeRepository.save(updatedRecipe));
         }
         return Optional.empty();
