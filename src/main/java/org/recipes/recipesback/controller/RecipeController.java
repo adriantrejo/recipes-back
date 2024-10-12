@@ -33,7 +33,6 @@ public class RecipeController {
             hasMissingFields = true;
         }
 
-        // If there are missing fields, return a 400 Bad Request with a consistent message
         if (hasMissingFields) {
             Map<String, Object> errorResponse = new HashMap<>();
             errorResponse.put("message", "Recipe creation failed!");
