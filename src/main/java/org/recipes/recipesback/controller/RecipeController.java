@@ -38,15 +38,15 @@ public class RecipeController {
             Map<String, Object> errorResponse = new HashMap<>();
             errorResponse.put("message", "Recipe creation failed!");
             errorResponse.put("required", "title, making_time, serves, ingredients, cost");
-            return ResponseEntity.badRequest().body(errorResponse);
+            return ResponseEntity.status(200).body(errorResponse);
         }
 
         // Proceed with creating the recipe
         Recipe createdRecipe = recipeService.createRecipe(recipe);
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Recipe successfully created!");
-        response.put("recipe", List.of(createdRecipe)); // Wrap in a list as per your structure
-        return ResponseEntity.status(201).body(response); // 201 Created
+        response.put("recipe", List.of(createdRecipe));
+        return ResponseEntity.status(200).body(response);
     }
 
 
@@ -58,14 +58,13 @@ public class RecipeController {
 
         // Create a response map to hold the response structure
         Map<String, Object> response = new HashMap<>();
-        response.put("recipes", recipes); // Wrap the list of recipes in the response map
+        response.put("recipes", recipes);
 
         // If the recipes list is empty, return no content
         if (recipes.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
-        // Return the response with status 200 OK and the body containing the recipes
         return ResponseEntity.ok(response);
     }
 
@@ -75,7 +74,7 @@ public class RecipeController {
         Map<String, Object> response = new HashMap<>();
         if (recipe.isPresent()) {
             response.put("message", "Recipe details by id");
-            response.put("recipe", List.of(recipe.get())); // Wrap in a list
+            response.put("recipe", List.of(recipe.get()));
             return ResponseEntity.ok(response);
         } else {
             response.put("message", "Recipe not found");
@@ -89,7 +88,7 @@ public class RecipeController {
         Map<String, Object> response = new HashMap<>();
         if (recipe.isPresent()) {
             response.put("message", "Recipe successfully updated!");
-            response.put("recipe", List.of(updatedRecipe)); // Wrap in a list
+            response.put("recipe", List.of(updatedRecipe));
             return ResponseEntity.ok(response);
         } else {
             response.put("message", "Recipe not found");
